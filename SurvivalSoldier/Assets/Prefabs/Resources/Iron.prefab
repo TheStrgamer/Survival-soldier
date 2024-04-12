@@ -61,7 +61,7 @@ MonoBehaviour:
   - {fileID: 762141172542436027}
   resourceName: Iron
   maxHealth: 10
-  droppedItem: {fileID: 0}
+  droppedItem: {fileID: 11400000, guid: 363984fa34ad0234185a392fff4a5926, type: 2}
 --- !u!114 &1423636397047418400
 MonoBehaviour:
   m_ObjectHideFlags: 0

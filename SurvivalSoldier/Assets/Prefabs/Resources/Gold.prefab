@@ -61,7 +61,7 @@ MonoBehaviour:
   - {fileID: 3627386541070266874}
   resourceName: Gold
   maxHealth: 15
-  droppedItem: {fileID: 0}
+  droppedItem: {fileID: 11400000, guid: 0e3b2c02e9369064c9ae95cd39bd31b0, type: 2}
 --- !u!114 &1423636397047418400
 MonoBehaviour:
   m_ObjectHideFlags: 0

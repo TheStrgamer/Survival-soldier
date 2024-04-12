@@ -57,7 +57,7 @@ MonoBehaviour:
   - {fileID: 2933986053273816935}
   resourceName: Tree
   maxHealth: 5
-  droppedItem: {fileID: 0}
+  droppedItem: {fileID: 11400000, guid: 27541a0f075a03442bb99b5c5ab94f9f, type: 2}
 --- !u!114 &1423636397047418400
 MonoBehaviour:
   m_ObjectHideFlags: 0

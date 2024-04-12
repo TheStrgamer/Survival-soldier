@@ -61,7 +61,7 @@ MonoBehaviour:
   - {fileID: 4484514408915360440}
   resourceName: Diamond
   maxHealth: 25
-  droppedItem: {fileID: 0}
+  droppedItem: {fileID: 11400000, guid: f61d555bb7a10b048af38237480454fc, type: 2}
 --- !u!114 &1423636397047418400
 MonoBehaviour:
   m_ObjectHideFlags: 0

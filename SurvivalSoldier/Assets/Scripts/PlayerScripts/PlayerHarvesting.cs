@@ -13,9 +13,17 @@ public class PlayerHarvesting : NetworkBehaviour
     [SerializeField] private float currentHarvestCooldown = 0f;
 
     [SerializeField] private LayerMask layerMask;
-//    [SerializeField] private Inventory inventory;
+    private PlayerInventory inventory;
 
     [SerializeField] private KeyCode harvestKey = KeyCode.E;
+
+
+
+    [Client]
+    private void Start()
+    {
+        inventory = GetComponent<PlayerInventory>();
+    }
 
     [Client]
     private void Update()
@@ -24,7 +32,6 @@ public class PlayerHarvesting : NetworkBehaviour
         currentHarvestCooldown -= Time.deltaTime;
         if (Input.GetKeyDown(harvestKey) && currentHarvestCooldown <=0)
         {
-            Debug.Log("Harvesting");
             Harvest();
             currentHarvestCooldown = harvestCooldown;
         }
@@ -61,6 +68,9 @@ public class PlayerHarvesting : NetworkBehaviour
             MinableResource resource = closestCollider.GetComponentInParent<MinableResource>();
             if (resource != null)
             {
+                if (resource.getHealth() <= harvestPower+extraHarvestPower && resource.droppedItem !=null) { 
+                    inventory.addItem(resource.droppedItem); 
+                }
                 CmdMineResource(resource);
             }
         }

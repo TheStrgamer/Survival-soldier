@@ -11,7 +11,7 @@ public class MinableResource : NetworkBehaviour
     [SerializeField] private int maxHealth = 10;
     [SyncVar] private int currentHealth;
 
-    [SerializeField] private Item droppedItem;
+    [SerializeField] public Item droppedItem;
 
     [SyncVar] private int randomModel = -1;
 
@@ -48,7 +48,6 @@ public class MinableResource : NetworkBehaviour
 
     public void setModel(int model)
     {
-        Debug.Log("Setting model to " + model);
         randomModel = model;
     }
 
@@ -68,7 +67,6 @@ public class MinableResource : NetworkBehaviour
      * Deals damage to the resource and destroys it if it's health is 0 or less
      */
     [ClientRpc]
-
     public void MineResource(int damage)
     {
         currentHealth -= damage;
@@ -85,13 +83,11 @@ public class MinableResource : NetworkBehaviour
     public void DropItem()
     {
         if (droppedItem == null) { return; }
-
-        Debug.Log("Dropping item");
     }
 
-    public string getHealth()
+    public int getHealth()
     {
-        return "current health = " + currentHealth.ToString();
+        return currentHealth;
     }
 
 

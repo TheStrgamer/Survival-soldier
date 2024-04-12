@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 372499449614884661}
   - component: {fileID: 1341594329770232843}
   - component: {fileID: 7146002604493457141}
+  - component: {fileID: 5749446719429853465}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -200,6 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68f3ef3210d806468ba768124bcf1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   harvestRange: 1
   harvestPower: 2
   harvestCooldown: 0.25
@@ -208,6 +212,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   harvestKey: 101
+--- !u!114 &5749446719429853465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871295168214891239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5536fbd6b52a64543b3ad3e0b554ef24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  maxHeldItems: 5
 --- !u!1 &7997101088429650296
 GameObject:
   m_ObjectHideFlags: 0
