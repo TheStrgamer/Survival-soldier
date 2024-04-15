@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnArea
   - Resource
+  - HomeBase
   layers:
   - Default
   - TransparentFX

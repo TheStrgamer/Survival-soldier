@@ -1,7 +1,9 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : NetworkBehaviour
 {
@@ -9,6 +11,39 @@ public class PlayerInventory : NetworkBehaviour
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
     public List<string> inventoryInspectorDisplay = new List<string>();
     public int maxHeldItems = 5; // Initial size of the inventory
+
+    public GameObject inventoryDisplay;
+    private InventoryItemUi[] inventoryItemUi;
+    private TMP_Text inventoryCount;
+    private GameObject inventoryFull;
+
+    public KeyCode inventoryKey = KeyCode.I;
+
+    private PlayerScript playerScript;
+    private bool canOpenInventory = true;
+
+
+
+    [Client]
+    private void Start()
+    {
+        inventoryFull = GameObject.Find("Full_Inventory");
+        inventoryDisplay = GameObject.Find("Inventory_back");
+        inventoryCount = GameObject.Find("Inventory_count").GetComponent<TMP_Text>();
+
+        inventoryItemUi = inventoryDisplay.GetComponentsInChildren<InventoryItemUi>();
+        inventoryDisplay.SetActive(false);
+        inventoryItems.Clear();
+        playerScript = GetComponent<PlayerScript>();
+
+
+
+    }
+
+    public void setCanOpenInventory(bool canOpenInventory)
+    {
+        this.canOpenInventory = canOpenInventory;
+    }
 
     private int getCurrentItemCount()
     {
@@ -64,6 +99,7 @@ public class PlayerInventory : NetworkBehaviour
         }
     }
 
+    [Client]
     private void Update()
     {
         inventoryInspectorDisplay.Clear();
@@ -71,6 +107,51 @@ public class PlayerInventory : NetworkBehaviour
         {
             inventoryInspectorDisplay.Add(item.item.name + " x" + item.count);
         }
+        if (Input.GetKeyDown(inventoryKey))
+        {
+            ToggleInventory();
+            UpdateInventoryDisplay();
+        }
+        if (inventoryFull != null)
+        {
+            if (getCurrentItemCount() >= maxHeldItems)
+            {
+                inventoryFull.SetActive(true);
+            }
+            else
+            {
+                inventoryFull.SetActive(false);
+            }
+        }
+        inventoryCount.SetText(getCurrentItemCount() + "/" + maxHeldItems + " items carried");
+
     }
+
+    public void ToggleInventory()
+    {
+        if (!canOpenInventory) return;
+
+        inventoryDisplay.SetActive(!inventoryDisplay.activeSelf);
+        Debug.Log("Inventory Display: " + inventoryDisplay.activeSelf);
+        playerScript.setCanMove(!inventoryDisplay.activeSelf);
+        playerScript.setCanMine(!inventoryDisplay.activeSelf);
+    }
+
+    public void UpdateInventoryDisplay()
+    {
+        for (int i = 0; i < inventoryItemUi.Length; i++)
+        {
+            if (i < inventoryItems.Count)
+            {
+                inventoryItemUi[i].SetItem(inventoryItems[i].item.icon, inventoryItems[i].count);
+            }
+            else
+            {
+                inventoryItemUi[i].ClearItem();
+            }
+        }
+
+    }
+
 
 }

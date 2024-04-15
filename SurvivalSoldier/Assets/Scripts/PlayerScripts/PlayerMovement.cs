@@ -24,6 +24,13 @@ public class PlayerMovement : NetworkBehaviour
 
     private playerColorPicker[] playerColorPickers;
 
+    private bool canMove = true;
+
+    public void setCanMove(bool canMove)
+    {
+        this.canMove = canMove;
+    }
+
 
     [Client]
     private void Start()
@@ -36,6 +43,7 @@ public class PlayerMovement : NetworkBehaviour
     private void Update()
     {
         if (!isOwned) { return; }
+        if (!canMove) { return; }
         movement = getMovementInput();
         playerMove();
         playerRotate();

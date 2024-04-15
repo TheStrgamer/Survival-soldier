@@ -17,6 +17,13 @@ public class PlayerHarvesting : NetworkBehaviour
 
     [SerializeField] private KeyCode harvestKey = KeyCode.E;
 
+    private bool canMine;
+
+    public void setCanMine(bool canMine)
+    {
+        this.canMine = canMine;
+    }
+
 
 
     [Client]
@@ -30,7 +37,7 @@ public class PlayerHarvesting : NetworkBehaviour
     {
         if (!isOwned) return;
         currentHarvestCooldown -= Time.deltaTime;
-        if (Input.GetKeyDown(harvestKey) && currentHarvestCooldown <=0)
+        if (Input.GetKeyDown(harvestKey) && currentHarvestCooldown <=0 && canMine)
         {
             Harvest();
             currentHarvestCooldown = harvestCooldown;

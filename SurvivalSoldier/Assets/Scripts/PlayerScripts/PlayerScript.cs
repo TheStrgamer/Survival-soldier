@@ -18,18 +18,24 @@ public class PlayerScript : NetworkBehaviour
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
 
+    public bool canMove = true;
+    public bool canMine = true;
+    public bool canOpenInventory = true;
 
-
-
+    private PlayerHarvesting playerHarvesting;
+    private PlayerInventory playerInventory;
 
 
     [Client]
     void Start()
     {
-        
+       
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         playerMovement = GetComponent<PlayerMovement>();
         playerColorPickers = GetComponentsInChildren<playerColorPicker>();
+        playerHarvesting = GetComponent<PlayerHarvesting>();
+        playerInventory = GetComponent<PlayerInventory>();
+
         playerManager.AddPlayer(gameObject);
 
 
@@ -37,6 +43,7 @@ public class PlayerScript : NetworkBehaviour
             return; 
         }
         playerCamera = Camera.main;
+        GameObject.FindWithTag("HomeBase").GetComponent<HomeBaseScript>().setPlayer(gameObject);
     }
 
     void Update()
@@ -55,6 +62,26 @@ public class PlayerScript : NetworkBehaviour
         {
             playerColorPicker.SetMaterial(playerNumber-1);
         }
+    }
+
+    [Client]
+    public void setCanMove(bool canMove)
+    {
+        this.canMove = canMove;
+        playerMovement.setCanMove(canMove);
+    }
+
+    [Client]
+    public void setCanMine(bool canMine)
+    {
+        this.canMine = canMine;
+        playerHarvesting.setCanMine(canMine);
+    }
+    [Client]
+    public void setCanOpenInventory(bool canOpenInventory)
+    {
+        this.canOpenInventory = canOpenInventory;
+        playerInventory.setCanOpenInventory(canOpenInventory);
     }
 
 }
