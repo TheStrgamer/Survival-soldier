@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1341594329770232843}
   - component: {fileID: 7146002604493457141}
   - component: {fileID: 5749446719429853465}
+  - component: {fileID: 5638689312296455713}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -186,9 +187,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerNumber: -1
-  maxHealth: 100
-  currentHealth: 100
   playerCamera: {fileID: 0}
+  canMove: 1
+  canMine: 1
+  canOpenInventory: 1
 --- !u!114 &7146002604493457141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +229,25 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  inventoryInspectorDisplay: []
   maxHeldItems: 5
+  inventoryDisplay: {fileID: 0}
+  inventoryKey: 105
+--- !u!114 &5638689312296455713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871295168214891239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d500dbda9fcca4b8fe3158feec8811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  currency: 0
 --- !u!1 &7997101088429650296
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +263,7 @@ GameObject:
   - component: {fileID: 2482783353940364438}
   m_Layer: 3
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

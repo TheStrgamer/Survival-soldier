@@ -17,7 +17,7 @@ public class PlayerHarvesting : NetworkBehaviour
 
     [SerializeField] private KeyCode harvestKey = KeyCode.E;
 
-    private bool canMine;
+    private bool canMine = true;
 
     public void setCanMine(bool canMine)
     {

@@ -22,6 +22,8 @@ public class PlayerInventory : NetworkBehaviour
     private PlayerScript playerScript;
     private bool canOpenInventory = true;
 
+    private TMP_Text sellText;
+
 
 
     [Client]
@@ -35,6 +37,11 @@ public class PlayerInventory : NetworkBehaviour
         inventoryDisplay.SetActive(false);
         inventoryItems.Clear();
         playerScript = GetComponent<PlayerScript>();
+
+        if (GameObject.Find("SellText") != null)
+        {
+            sellText = GameObject.Find("SellText").GetComponent<TMP_Text>();
+        }
 
 
 
@@ -125,6 +132,11 @@ public class PlayerInventory : NetworkBehaviour
         }
         inventoryCount.SetText(getCurrentItemCount() + "/" + maxHeldItems + " items carried");
 
+        if (sellText != null)
+        {
+            sellText.SetText("Sell all items\n  $" + getSellValue());
+        }
+
     }
 
     public void ToggleInventory()
@@ -132,7 +144,6 @@ public class PlayerInventory : NetworkBehaviour
         if (!canOpenInventory) return;
 
         inventoryDisplay.SetActive(!inventoryDisplay.activeSelf);
-        Debug.Log("Inventory Display: " + inventoryDisplay.activeSelf);
         playerScript.setCanMove(!inventoryDisplay.activeSelf);
         playerScript.setCanMine(!inventoryDisplay.activeSelf);
     }
@@ -152,6 +163,24 @@ public class PlayerInventory : NetworkBehaviour
         }
 
     }
+
+    public void sellAllItems()
+    {
+        playerScript.addMoney(getSellValue());
+        inventoryItems.Clear();
+    }
+
+    public int getSellValue()
+    {
+        int value = 0;
+        foreach (InventoryItem item in inventoryItems)
+        {
+            value += item.item.value * item.count;
+        }
+        return value;
+    }
+
+
 
 
 }

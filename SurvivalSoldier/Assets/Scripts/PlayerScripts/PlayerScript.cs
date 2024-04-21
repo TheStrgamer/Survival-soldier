@@ -8,15 +8,14 @@ public class PlayerScript : NetworkBehaviour
     [SyncVar]
     [SerializeField] private int playerNumber = -1;
 
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHealth = 100f;
-
+    
     [SerializeField] private Camera playerCamera;
 
     //Components
     private playerColorPicker[] playerColorPickers;
     private PlayerMovement playerMovement;
     private PlayerManager playerManager;
+    private PlayerStatsManager playerStatsManager;
 
     public bool canMove = true;
     public bool canMine = true;
@@ -35,6 +34,7 @@ public class PlayerScript : NetworkBehaviour
         playerColorPickers = GetComponentsInChildren<playerColorPicker>();
         playerHarvesting = GetComponent<PlayerHarvesting>();
         playerInventory = GetComponent<PlayerInventory>();
+        playerStatsManager = GetComponent<PlayerStatsManager>();
 
         playerManager.AddPlayer(gameObject);
 
@@ -82,6 +82,12 @@ public class PlayerScript : NetworkBehaviour
     {
         this.canOpenInventory = canOpenInventory;
         playerInventory.setCanOpenInventory(canOpenInventory);
+    }
+
+    [Client]
+    public void addMoney(int amount)
+    {
+        playerStatsManager.addMoney(amount);
     }
 
 }
