@@ -14,7 +14,9 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 movement;
     private Rigidbody rb = null;
     [SerializeField] private float movementSpeed = 5f;
+
     [SerializeField] private bool rotationToMouse = false;
+
     [SerializeField] private float rotationSpeed = 25f;
     [SerializeField] private float jumpForce = 5f;
 
@@ -115,6 +117,12 @@ public class PlayerMovement : NetworkBehaviour
                 transform.LookAt(lookAt);
             }
         }
+    }
+
+    [Client]
+    public void setRotationToMouse(bool value)
+    {
+        rotationToMouse = value;
     }
 
 }

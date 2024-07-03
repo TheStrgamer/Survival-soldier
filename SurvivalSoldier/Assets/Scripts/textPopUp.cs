@@ -7,7 +7,6 @@ public class textPopUp : MonoBehaviour
 {
     
     public TMP_Text text;
-    public float lifeTime = .5f;
     public Vector3 moveDirection;
 
     public float scaleSpeed = 1f;
@@ -22,18 +21,12 @@ public class textPopUp : MonoBehaviour
         this.scaleSpeed = scaleSpeed;
     }
 
-    void Start()
-    {
-  
-
-        Destroy(gameObject, lifeTime);
-    }
-
 
     // Update is called once per frame
     void Update()
     {       
         transform.position += moveDirection * Time.deltaTime;
+        if (transform.localScale.x+ scaleSpeed * Time.deltaTime < 0) { return; }
         transform.localScale += new Vector3(scaleSpeed, scaleSpeed, scaleSpeed) * Time.deltaTime;
     }
 }

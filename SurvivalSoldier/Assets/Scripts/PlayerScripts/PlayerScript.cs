@@ -24,6 +24,10 @@ public class PlayerScript : NetworkBehaviour
     private PlayerHarvesting playerHarvesting;
     private PlayerInventory playerInventory;
 
+    private float camDistanceMultiplier = 0;
+
+    private PlayerCamera playerCameraScript;
+
 
     [Client]
     void Start()
@@ -38,18 +42,31 @@ public class PlayerScript : NetworkBehaviour
 
         playerManager.AddPlayer(gameObject);
 
-
         if (!isOwned) {
             return; 
         }
         playerCamera = Camera.main;
+        playerCameraScript = playerCamera.GetComponent<PlayerCamera>();
         GameObject.FindWithTag("HomeBase").GetComponent<HomeBaseScript>().setPlayer(gameObject);
+    }
+
+    [Client]
+    public void setDistanceMultiplier(float value)
+    {
+         camDistanceMultiplier = value;
+    }
+
+    [Client]
+    public void cameraShake(float duration, float magnitude)
+    {
+        if (!isOwned) { return; }
+        StartCoroutine(playerCameraScript.Shake(duration, magnitude));
     }
 
     void Update()
     {
         if (!isOwned) { return; }
-        playerCamera.transform.position = new Vector3(transform.position.x, playerCamera.transform.position.y, transform.position.z-9.22f);
+        playerCameraScript.givePosition(transform, camDistanceMultiplier);
         
     }
 
@@ -84,10 +101,5 @@ public class PlayerScript : NetworkBehaviour
         playerInventory.setCanOpenInventory(canOpenInventory);
     }
 
-    [Client]
-    public void addMoney(int amount)
-    {
-        playerStatsManager.addMoney(amount);
-    }
 
 }

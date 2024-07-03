@@ -2,37 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Mirror;
 
-public class PlayerStatsManager : MonoBehaviour
+public class PlayerStatsManager : NetworkBehaviour
 {
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int currentHealth = 100;
 
-    [SerializeField] private int money = 0;
-    private TMP_Text moneyText;
 
-    private void Start()
-    {
-        moneyText = GameObject.Find("MoneyText").GetComponent<TMP_Text>();
-        moneyText.text ="$ " + money.ToString() ;
-    }
+    [Client]
 
     public void TakeDamage(int damage)
     {
+        if (!isOwned) { return; }
+
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
             Die();
         }
     }
+    [Client]
+
     public void Die()
     {
         Debug.Log("Player died");
     }
 
-    public void addMoney(int amount)
-    {
-        money += amount;
-        moneyText.text ="$ " + money.ToString();
-    }
 }

@@ -1,11 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using TMPro;
+
+/**
+ * responsible for managing all players in the game
+ * the player manager is server side
+ * */
 
 public class PlayerManager : NetworkBehaviour
 {
     [SyncVar]
     private List<GameObject> players = new List<GameObject>();
+
+    private int playerMoney = 0;
 
     [Server]
     public void AddPlayer(GameObject player)
@@ -33,9 +41,24 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+    [Server]
+
+    public void addMoney(int value)
+    {
+        playerMoney += value;
+        RpcUpdateMoney(playerMoney);
+    }
+
+    [ClientRpc]
+    public void RpcUpdateMoney(int value)
+    {
+        playerMoney = value;
+        GameObject.Find("MoneyText").GetComponent<TMP_Text>().text = "$ " +  value.ToString(); ;
+    }
 
 
-    
+
+
 
 
 

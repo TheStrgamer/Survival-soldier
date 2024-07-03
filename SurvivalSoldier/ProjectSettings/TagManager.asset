@@ -7,6 +7,8 @@ TagManager:
   - SpawnArea
   - Resource
   - HomeBase
+  - Enemy
+  - Sellable
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - UI
   - 
   - Resource
-  - 
+  - Draggable
   - 
   - 
   - 

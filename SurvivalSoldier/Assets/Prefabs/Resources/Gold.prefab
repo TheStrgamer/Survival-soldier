@@ -62,6 +62,10 @@ MonoBehaviour:
   resourceName: Gold
   maxHealth: 15
   droppedItem: {fileID: 11400000, guid: 0e3b2c02e9369064c9ae95cd39bd31b0, type: 2}
+  droppableObjects:
+  - {fileID: 5151013144805946839, guid: 46cd0054913333542bf170588c0fcc7e, type: 3}
+  minDropAmount: 1
+  maxDropAmount: 2
 --- !u!114 &1423636397047418400
 MonoBehaviour:
   m_ObjectHideFlags: 0

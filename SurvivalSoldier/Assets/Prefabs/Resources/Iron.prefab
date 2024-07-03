@@ -62,6 +62,10 @@ MonoBehaviour:
   resourceName: Iron
   maxHealth: 10
   droppedItem: {fileID: 11400000, guid: 363984fa34ad0234185a392fff4a5926, type: 2}
+  droppableObjects:
+  - {fileID: 272065577864542550, guid: 0790b52246146f947a8482bdcc25d2d6, type: 3}
+  minDropAmount: 1
+  maxDropAmount: 2
 --- !u!114 &1423636397047418400
 MonoBehaviour:
   m_ObjectHideFlags: 0

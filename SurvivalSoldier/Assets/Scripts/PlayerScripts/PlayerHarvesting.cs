@@ -75,9 +75,9 @@ public class PlayerHarvesting : NetworkBehaviour
             MinableResource resource = closestCollider.GetComponentInParent<MinableResource>();
             if (resource != null)
             {
-                if (resource.getHealth() <= harvestPower+extraHarvestPower && resource.droppedItem !=null) { 
-                    inventory.addItem(resource.droppedItem); 
-                }
+                //if (resource.getHealth() <= harvestPower+extraHarvestPower && resource.droppedItem !=null) { 
+                //    inventory.addItem(resource.droppedItem); 
+                //}
                 CmdMineResource(resource);
             }
         }

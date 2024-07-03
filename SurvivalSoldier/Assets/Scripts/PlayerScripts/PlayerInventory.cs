@@ -24,11 +24,14 @@ public class PlayerInventory : NetworkBehaviour
 
     private TMP_Text sellText;
 
+    public GameObject textPopUp = null;
+
 
 
     [Client]
     private void Start()
     {
+        if (!isOwned) { return; }
         inventoryFull = GameObject.Find("Full_Inventory");
         inventoryDisplay = GameObject.Find("Inventory_back");
         inventoryCount = GameObject.Find("Inventory_count").GetComponent<TMP_Text>();
@@ -42,10 +45,8 @@ public class PlayerInventory : NetworkBehaviour
         {
             sellText = GameObject.Find("SellText").GetComponent<TMP_Text>();
         }
-
-
-
     }
+
 
     public void setCanOpenInventory(bool canOpenInventory)
     {
@@ -71,6 +72,7 @@ public class PlayerInventory : NetworkBehaviour
         return false;
     }
 
+    [Client]
     public void addItem(Item item, int count = 1)
     {
         if (canAddItem() && item != null)
@@ -87,6 +89,7 @@ public class PlayerInventory : NetworkBehaviour
                 newItem.count = count;
                 inventoryItems.Add(newItem);
             }
+            spawnTextPopUp(item,count);
  
         }
     }
@@ -109,6 +112,11 @@ public class PlayerInventory : NetworkBehaviour
     [Client]
     private void Update()
     {
+        if (!isOwned) { return; }
+        if (inventoryCount == null) { return; }
+        if (inventoryFull == null) { return; }
+
+
         inventoryInspectorDisplay.Clear();
         foreach (InventoryItem item in inventoryItems)
         {
@@ -117,7 +125,6 @@ public class PlayerInventory : NetworkBehaviour
         if (Input.GetKeyDown(inventoryKey))
         {
             ToggleInventory();
-            UpdateInventoryDisplay();
         }
         if (inventoryFull != null)
         {
@@ -131,11 +138,12 @@ public class PlayerInventory : NetworkBehaviour
             }
         }
         inventoryCount.SetText(getCurrentItemCount() + "/" + maxHeldItems + " items carried");
+        UpdateInventoryDisplay();
 
-        if (sellText != null)
-        {
-            sellText.SetText("Sell all items\n  $" + getSellValue());
-        }
+        //if (sellText != null)
+        //{
+        //    sellText.SetText("Sell all items\n  $" + getSellValue());
+        //}
 
     }
 
@@ -144,8 +152,8 @@ public class PlayerInventory : NetworkBehaviour
         if (!canOpenInventory) return;
 
         inventoryDisplay.SetActive(!inventoryDisplay.activeSelf);
-        playerScript.setCanMove(!inventoryDisplay.activeSelf);
-        playerScript.setCanMine(!inventoryDisplay.activeSelf);
+        //playerScript.setCanMove(!inventoryDisplay.activeSelf);
+        //playerScript.setCanMine(!inventoryDisplay.activeSelf);
     }
 
     public void UpdateInventoryDisplay()
@@ -166,7 +174,7 @@ public class PlayerInventory : NetworkBehaviour
 
     public void sellAllItems()
     {
-        playerScript.addMoney(getSellValue());
+        //playerScript.addMoney(getSellValue());
         inventoryItems.Clear();
     }
 
@@ -180,6 +188,41 @@ public class PlayerInventory : NetworkBehaviour
         return value;
     }
 
+    private void spawnTextPopUp(Item item, int count)
+    {
+        if (textPopUp == null) { return; }
+        GameObject textPopUpInstance = Instantiate(textPopUp, transform.position, Quaternion.identity);
+        textPopUpInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        Color color;
+        switch (item.name)
+        {
+            case "Gold":
+                color = Color.yellow;
+                break;
+
+            case "Iron":
+                color = new Color(.8f, .8f, .8f, 1); // Silverish
+                break;
+
+            case "Stone":
+                color = new Color(.65f, .65f, .65f, 1); // Gray
+                break;
+
+            case "Diamond":
+                color = new Color(.85f, .85f, 1, 1); // Light blue
+                break;
+
+            case "Wood":
+                color = new Color(.6f, .4f, .04f, 1); // Brown
+                break;
+
+            default:
+                color = Color.gray; // Default color
+                break;
+        }
+        textPopUpInstance.GetComponent<textPopUp>().init(new Vector3(0, 10, -5), color, "added " + item.name + " x" + count, -.2f);
+        Destroy(textPopUpInstance, 1f);
+    }
 
 
 

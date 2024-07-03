@@ -20,6 +20,10 @@ public class MinableResource : NetworkBehaviour
     private float mineAnimationMinScale = 0.9f;
     private Vector3 goalScale = Vector3.one;
 
+    [SerializeField] private GameObject[] droppableObjects;
+    [SerializeField] private int minDropAmount = 1;
+    [SerializeField] private int maxDropAmount = 3;
+
     
     void Start()
     {
@@ -51,6 +55,7 @@ public class MinableResource : NetworkBehaviour
         randomModel = model;
     }
 
+
     private void Update()
     {
         if (mineAnimation)
@@ -77,19 +82,39 @@ public class MinableResource : NetworkBehaviour
         }
     }
 
+
+
     /**
-    * Spawns the dropped item
-    */
+         * Spawns the dropped item
+         */
+    [Server]
     public void DropItem()
     {
-        if (droppedItem == null) { return; }
+        if (droppedItem == null || droppableObjects.Length == 0) return;
+
+        int dropAmount = Random.Range(minDropAmount, maxDropAmount + 1);
+        for (int i = 0; i < dropAmount; i++)
+        {
+            Vector3 offset = new Vector3(Random.Range(0.2f, 1f) * i * Mathf.Pow(-1, i), 1, Random.Range(0.2f, 1f) * i * Mathf.Pow(-1, i)) ;
+            GameObject droppedObject = Instantiate(droppableObjects[Random.Range(0, droppableObjects.Length)], transform.position + offset, Quaternion.identity);
+            droppedObject.GetComponent<DraggableObject>().setSellValue(droppedItem.value);
+            NetworkServer.Spawn(droppedObject);
+            Debug.Log("Dropped item");
+        }
     }
 
+
+    /**
+     *     * Returns the current health of the resource
+     *         */
     public int getHealth()
     {
         return currentHealth;
     }
 
+    /**
+     * starts the inpact animation
+     */
 
     [ClientRpc]
     public void startMineAnim()
