@@ -202,7 +202,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   movementSpeed: 5
-  rotationToMouse: 0
+  rotationToMouse: 1
   rotationSpeed: 25
   jumpForce: 7.5
   groundCheckDistance: 0.4
@@ -249,7 +249,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
-  harvestKey: 101
+  actionName: Action1
 --- !u!114 &5749446719429853465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +287,6 @@ MonoBehaviour:
   syncInterval: 0
   maxHealth: 100
   currentHealth: 100
-  money: 0
 --- !u!114 &4835395891879093190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +307,8 @@ MonoBehaviour:
   isShooting: 0
   isWalking: 0
   isRunning: 0
+  harvestMode: 1
+  combatMode: 0
   aimModeButton: 306
 --- !u!114 &635099316761071349
 MonoBehaviour:
@@ -329,7 +330,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b4f93782d4dce24bafa0d7960c4f5f4, type: 2}
   timeSinceLastShot: 0
   currentWeaponIndex: 0
-  fireWeaponKey: 323
+  actionName: Action1
   canShoot: 1
   gunPoint: {fileID: 1190180046952144361}
   gunModel: {fileID: 8894576900047290752}
@@ -352,7 +353,7 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 256
-  dragKey: 101
+  actionName: Action1
 --- !u!120 &3723581388825827380
 LineRenderer:
   serializedVersion: 2

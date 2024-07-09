@@ -30,11 +30,14 @@ public class ProjectileScript : MonoBehaviour
     {
         foreach (string tag in targetTags)
         {
-            if (other.CompareTag(tag) && other.GetComponent<HealthManager>())
+            Debug.Log(tag);
+            if (other.CompareTag(tag) && other.gameObject.GetComponent<HealthManager>())
             {
                 other.GetComponent<HealthManager>().TakeDamage(projectileData.damage);
             }
         }
+        Debug.Log(other.gameObject.tag + " " + other.gameObject.name);
+
         if (projectileData.impactEffect)
         {
             Instantiate(projectileData.impactEffect, transform.position, transform.rotation);
