@@ -24,7 +24,7 @@ public class SpawnArea : MonoBehaviour
 
     public bool resourcesCanStack = false;
 
-
+    
     void Start()
     {
         
@@ -80,7 +80,7 @@ public class SpawnArea : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(randomX, 100, randomZ), Vector3.down, out hit))
         {
-            if (hit.collider.gameObject.tag == "Resource")
+            if (hit.collider.gameObject.tag == "Resource" && !resourcesCanStack)
             {
                 return GetRandomPosition(loop++);
             }

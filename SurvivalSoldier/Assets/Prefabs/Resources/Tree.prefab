@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7099167266350459106}
   - component: {fileID: 3013590620401061063}
   - component: {fileID: 1423636397047418400}
+  - component: {fileID: 7816715939290850003}
   m_Layer: 7
   m_Name: Tree
   m_TagString: Resource
@@ -79,6 +80,22 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!208 &7816715939290850003
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5922100138878011711}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.6, y: 2, z: 0.6}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &2932760234978579037
 PrefabInstance:
   m_ObjectHideFlags: 0

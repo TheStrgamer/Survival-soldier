@@ -99,7 +99,6 @@ public class MinableResource : NetworkBehaviour
             GameObject droppedObject = Instantiate(droppableObjects[Random.Range(0, droppableObjects.Length)], transform.position + offset, Quaternion.identity);
             droppedObject.GetComponent<DraggableObject>().setSellValue(droppedItem.value);
             NetworkServer.Spawn(droppedObject);
-            Debug.Log("Dropped item");
         }
     }
 

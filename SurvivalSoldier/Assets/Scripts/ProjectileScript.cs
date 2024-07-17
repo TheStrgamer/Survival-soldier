@@ -36,7 +36,6 @@ public class ProjectileScript : MonoBehaviour
                 other.GetComponent<HealthManager>().TakeDamage(projectileData.damage);
             }
         }
-        Debug.Log(other.gameObject.tag + " " + other.gameObject.name);
 
         if (projectileData.impactEffect)
         {
