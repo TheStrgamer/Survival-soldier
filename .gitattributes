@@ -1,0 +1,5 @@
+SurvivalSoldiers/Assets/Mirror/*.cs linguist-vendored
+*.aspx linguist-vendored
+*.ascx linguist-vendored
+*.master linguist-vendored
+*.cshtml linguist-vendored
