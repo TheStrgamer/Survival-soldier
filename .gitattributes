@@ -3,3 +3,5 @@ SurvivalSoldiers/Assets/Mirror/*.cs linguist-vendored
 *.ascx linguist-vendored
 *.master linguist-vendored
 *.cshtml linguist-vendored
+* linguist-vendored
+SurvivalSoldiers/Assets/Scripts/*.cs linguist-vendored=false
